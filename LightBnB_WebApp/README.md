@@ -1,4 +1,4 @@
-!["LightBnB"](https://github.com/swathij943/LightBnB/blob/master/Image.PNG)
+
 
 # LightBnB
 
