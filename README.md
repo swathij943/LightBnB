@@ -1,8 +1,4 @@
-[LightBnB](https://github.com/swathij943/LightBnB/blob/master/Image.PNG)
-
-# LightBnB
-
-A simple multi-page Airbnb clone that uses a server-side Javascript to display the information from queries to web pages via SQL queries.
+!["Tweeter - main page"](https://github.com/swathij943/LightBnB/blob/master/Image.PNG)
 
 # Getting Started
 
