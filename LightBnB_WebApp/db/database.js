@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 const params = {
   port: '5432',
   user: 'labber',
-  password: '123',
+  password: 'labber',
   host: 'localhost',
   database: 'lightbnb'
 };
@@ -39,7 +39,7 @@ const getUserWithEmail = function (email) {
       .catch(err => {console.log(err.stack)});
 };
 
-exports.getUserWithEmail = getUserWithEmail;
+
 
 /**
  * Get a single user from the database given their id.
@@ -64,7 +64,6 @@ const getUserWithId = function (id) {
      .catch(err => {console.log(err.stack)});
 };
 
-exports.getUserWithId = getUserWithId;
 
 /**
  * Add a new user to the database.
@@ -87,7 +86,6 @@ const addUser = function (user) {
     });
 };
 
-exports.addUser = addUser;
 
 /// Reservations
 
@@ -113,7 +111,6 @@ const getAllReservations = function (guest_id, limit = 10) {
      .catch(err => {console.log(err.stack)});
 };
 
-exports.getAllReservations = getAllReservations;
 
 /// Properties
 
@@ -128,8 +125,7 @@ const getAllProperties = function (options, limit = 10) {
   let queryString = `
   SELECT properties.*, AVG(property_reviews.rating) as average_rating
   FROM properties
-  JOIN property_reviews ON properties.id = property_id
-  `;
+  JOIN property_reviews ON properties.id = property_id`;
 
   for (let parameter in options)  {
     if (parameter === 'city' && options[parameter]) {
@@ -175,7 +171,6 @@ const getAllProperties = function (options, limit = 10) {
     });
 }
 
-exports.getAllProperties = getAllProperties;
 
 /**
  * Add a property to the database
@@ -196,5 +191,12 @@ const addProperty = function (property) {
      });
 };
 
-exports.addProperty = addProperty;
+module.exports = {
+  getUserWithEmail,
+  getUserWithId,
+  addUser,
+  getAllReservations,
+  getAllProperties,
+  addProperty,
+};
 
