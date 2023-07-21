@@ -158,11 +158,13 @@ const getAllProperties = function (options, limit = 10) {
 
   if (options.minimum_rating) {
     queryParams.push(options.minimum_rating);
-    queryString += `${queryParams.length === 1 ? 'WHERE' : 'AND'} property_reviews.rating >= $${queryParams.length} `;
+    queryString += `
+      GROUP BY properties.id, property_reviews.rating
+      HAVING AVG(property_reviews.rating) >= $${queryParams.length}
+    `;
   }
 
   queryString += `
-    GROUP BY properties.id
     ORDER BY properties.cost_per_night
     LIMIT $${queryParams.length + 1};
   `;
@@ -189,6 +191,10 @@ const addProperty = function (property) {
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
     RETURNING *;
   `;
+
+  // Convert cost_per_night from dollars to cents
+  property.cost_per_night *= 100;
+
   const queryParams = [
     property.owner_id,
     property.title,
